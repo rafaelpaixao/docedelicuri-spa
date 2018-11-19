@@ -38,7 +38,7 @@
     </v-bottom-nav>
     </v-slide-y-transition>
 
-
+    <v-bottom-sheet v-model="sheet">
       <v-layout column class="app-form">
         <p class="body-1 font-weight-regular mx-2 mt-2">
           Aqui você pode consultar informações sobre os salários dos servidores públicos da Câmara Municipal de Feira de Santana.
@@ -68,7 +68,8 @@
           <v-icon class="mr-2">search</v-icon>
           CONSULTAR
         </v-btn>
-    </v-layout>
+      </v-layout>
+    </v-bottom-sheet>
   </v-app>
 </template>
 
