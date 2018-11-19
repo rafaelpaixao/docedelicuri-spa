@@ -1,6 +1,20 @@
 <template>
 <v-container>
-  <template v-if="monthAnalysis != null">
+  <template v-if="loading">
+<v-layout row justify-center>
+      <v-progress-circular
+      :size="70"
+      class="my-4"
+      indeterminate
+      color="primary">
+      </v-progress-circular>
+    </v-layout>
+  </template>
+  <template v-else>
+    <template v-if="monthAnalysis===null">
+        Nenhum dado para exibir.
+    </template>
+    <template v-else>
     <v-layout :row="$vuetify.breakpoint.lgAndUp" :column="$vuetify.breakpoint.mdAndDown">
 
       <v-flex xs12 mb-3 lg4>
@@ -11,8 +25,6 @@
           <router-link :to="{name:'payments', params:params}">Ver detalhes do mês</router-link>
         </div>
       </v-flex>
-      
-
 
       <v-flex xs12 mb-3 lg4 :mx-4="$vuetify.breakpoint.lgAndUp">
         <v-card class="pa-3 app-card">
@@ -32,20 +44,10 @@
         </v-card>
       </v-flex>
 
-
   </v-layout>
   </template>
-  <template v-else>
-    <v-layout row justify-center>
-      <v-progress-circular
-      :size="70"
-      class="my-4"
-      indeterminate
-      color="primary">
-      </v-progress-circular>
-    </v-layout>
+
   </template>
-  
 </v-container>
   
 </template>
@@ -60,6 +62,7 @@ export default {
   data(){
     return {
       monthAnalysis: null,
+      loading: true,
       salaryTotal: 0,
       params:{
         city: this.$route.params.city,
@@ -86,6 +89,7 @@ export default {
         const ma = snapshot.val()
         self.salaryTotal = self.sumComposition(ma.salariesTotal)
         self.monthAnalysis = ma
+        self.loading = false
       });
   }
 }

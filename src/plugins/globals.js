@@ -1,7 +1,8 @@
 import Vue from 'vue'
 
 Vue.prototype.$toMoney = function(value){
-  return value.toFixed(2).replace('.',',')
+  var aux = value.toFixed(2).split('.')
+  return aux[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "," + aux[1]
 }
 
 Vue.prototype.$getMonth = function(value){

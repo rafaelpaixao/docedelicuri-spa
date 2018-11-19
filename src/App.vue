@@ -25,7 +25,7 @@
 
       <v-flex xs4 @click="sheet=true">
       <v-layout row justify-center align-center>
-        <v-icon class="mr-2">account_balance</v-icon><div>Câmara Municipal</div>
+        <v-icon class="mr-2">account_balance</v-icon><div class="app-bottom-entity">{{entityName}}</div>
       </v-layout>
       </v-flex>
 
@@ -41,13 +41,22 @@
     <v-bottom-sheet v-model="sheet">
       <v-layout column class="app-form">
         <p class="body-1 font-weight-regular mx-2 mt-2">
-          Aqui você pode consultar informações sobre os salários dos servidores públicos da Câmara Municipal de Feira de Santana.
+          Aqui você pode consultar informações sobre os salários dos servidores de algumas entidades públicas de Feira de Santana.
         </p>
         <p class="body-1 font-weight-regular mx-2">Os dados são fornecidos pelo portal do 
           <a href="https://www.tcm.ba.gov.br/portal-da-cidadania/pessoal/" target="_blank">Tribunal de Contas dos Municípios da Bahia</a>
         </p>
         <v-select
           class="mt-4 mx-2"
+          :items="options.entities"
+          v-model="search.entity"
+          label="Escolha a entidade"
+          item-text="text"
+          item-value="value"
+          solo
+        ></v-select>
+        <v-select
+          class="mx-2"
           :items="options.years"
           v-model="search.year"
           label="Escolha o ano"
@@ -59,6 +68,8 @@
           :items="options.months"
           v-model="search.month"
           label="Escolha o mês"
+          item-text="text"
+          item-value="value"
           solo
         ></v-select>
         <v-btn
@@ -83,6 +94,17 @@ export default {
       sheet: false
     }
   },
+  computed:{
+    entityName(){
+      const v = this.$route.params.entity
+      const e = this.options.entities.filter(entity => {
+        console.log(entity.value)
+        console.log(entity.value === v)
+        return entity.value === v
+      })
+      return e[0].text
+    }
+  },
   methods:{
     doSearch(){
       this.sheet = false
@@ -97,5 +119,9 @@ export default {
 }
 .app-form{
   background-color: white
+}
+.app-bottom-entity{
+  max-height: 42px;
+  overflow: hidden;
 }
 </style>
