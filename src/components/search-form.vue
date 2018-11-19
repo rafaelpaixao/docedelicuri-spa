@@ -1,4 +1,53 @@
 <script>
+const months = [{
+          text: 'Janeiro',
+          value: 1
+        },
+        {
+          text: 'Fevereiro',
+          value: 2
+        },
+        {
+          text: 'Março',
+          value: 3
+        },
+        {
+          text: 'Abril',
+          value: 4
+        },
+        {
+          text: 'Maio',
+          value: 5
+        },
+        {
+          text: 'Junho',
+          value: 6
+        },
+        {
+          text: 'Julho',
+          value: 7
+        },
+        {
+          text: 'Agosto',
+          value: 8
+        },
+        {
+          text: 'Setembro',
+          value: 9
+        },
+        {
+          text: 'Outubro',
+          value: 10
+        },
+        {
+          text: 'Novembro',
+          value: 11
+        },
+        {
+          text: 'Dezembro',
+          value: 12
+        },
+        ]
 export default {
   data(){
     return{
@@ -62,7 +111,7 @@ export default {
         entities: [
         { value: '129',
           text: 'Prefeitura Municipal' },
-        { value: '544', text: 'Camara Municipal ' },
+        { value: '544', text: 'Câmara Municipal ' },
         { value: '880',
           text: 'Instituto de Previdência' },
         { value: '892',
@@ -73,7 +122,7 @@ export default {
         { value: '1032',
           text: 'Superintendência Municipal de Proteção e Defesa do Consumidor' },
         { value: '1033',
-          text: 'Agência Reguladora' },
+          text: 'Agência Reguladora de Feira de Santana' },
         { value: '1104',
           text: 'Consórcio Público Interfederativo De Saúde Da Região de Feira de Santana' },
           ]
@@ -88,12 +137,13 @@ export default {
   },
   watch:{
     'search.year': function(newVal){
+      console.log(newVal)
       if(newVal==="2018"){
         this.search.month=null
-        this.options.months = ["9","8","7","6","5","4","3","2","1"]
+        this.options.months = months.slice(0,9) 
       }else{
         this.search.month=null
-        this.options.months = ["12","11","10","9","8","7","6","5","4","3","2","1"]
+        this.options.months = months
       }
     }
   }
