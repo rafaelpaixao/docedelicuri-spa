@@ -137,7 +137,6 @@ export default {
   },
   watch:{
     'search.year': function(newVal){
-      console.log(newVal)
       if(newVal==="2018"){
         this.search.month=null
         this.options.months = months.slice(0,9) 

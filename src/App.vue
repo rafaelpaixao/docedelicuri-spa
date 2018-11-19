@@ -98,8 +98,6 @@ export default {
     entityName(){
       const v = this.$route.params.entity
       const e = this.options.entities.filter(entity => {
-        console.log(entity.value)
-        console.log(entity.value === v)
         return entity.value === v
       })
       return e[0].text
