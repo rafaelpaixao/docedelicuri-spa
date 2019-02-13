@@ -1,16 +1,32 @@
-import * as Firebase from 'firebase/app';
-import 'firebase/database';
+const BASE_URL = "https://docedelicuri.firebaseio.com/";
 
-let config = {
-  apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
-  authDomain: process.env.VUE_APP_FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.VUE_APP_FIREBASE_DATABASE_URL,
-  projectId: process.env.VUE_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.VUE_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGING_SENDER_ID
-};
+class FirebaseProvider {
+  get(path) {
+    var request = new XMLHttpRequest();
+    return new Promise(function(resolve, reject) {
+      request.onreadystatechange = function() {
+        if (request.readyState !== 4) return;
+        if (request.status >= 200 && request.status < 300) {
+          resolve(JSON.parse(request.response));
+        } else {
+          reject({
+            status: request.status,
+            statusText: request.statusText
+          });
+        }
+      };
+      request.open("GET", BASE_URL + path, true);
+      request.send();
+    });
+  }
+  getMonthReport({ city, entity, year, month }) {
+    return this.get(
+      `payments_reports_month/${city}/${entity}/${year}/${month}.json`
+    );
+  }
+  getMonthPayments({ city, entity, year, month }) {
+    return this.get(`payments/${city}/${entity}/${year}/${month}.json`);
+  }
+}
 
-let app = Firebase.initializeApp(config);
-let db = app.database();
-
-export default db;
+export default new FirebaseProvider();
