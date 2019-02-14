@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "material-design-icons-iconfont": "^3.0.3",
-    "roboto-fontface": "*",
     "vue": "^2.5.17",
     "vue-analytics": "^5.16.0",
     "vue-router": "^3.0.1",
